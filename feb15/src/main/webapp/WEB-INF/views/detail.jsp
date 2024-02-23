@@ -165,14 +165,14 @@ function deleteComment(no){
 					<div class="col-7">
 					${c.mname }
 					<c:if test="${c.mid eq sessionScope.mid}">
-						<img alt="edit" src="./img/edit.png">
-						<img alt="delete" src="./img/delete.png" title="댓글삭제" onclick="deleteComment(${c.no })">
+						<img alt="edit" src="img/edit.png">
+						<img alt="delete" src="img/delete.png" title="댓글삭제" onclick="deleteComment(${c.no })">
 					</c:if>
 					</div>
-					<div class="col-2"><img alt="ip" src="./img/ip.png"> ${c.cip }</div>
-					<div class="col-2"><img alt="time" src="./img/time.png"> ${c.cdate }</div>
+					<div class="col-2"><img alt="ip" src="img/ip.png"> ${c.cip }</div>
+					<div class="col-2"><img alt="time" src="img/time.png"> ${c.cdate }</div>
 					<div class="col-1">
-					<img alt="like" src="./img/like.png" onclick="like(${c.no})"> 
+					<img alt="like" src="img/like.png" onclick="like(${c.no})"> 
 					${c.clike }
 					</div>
 				</div>
@@ -185,8 +185,7 @@ function deleteComment(no){
 		</div>
 	</section>
 	<!-- Bootstrap core JS-->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="js/scripts.js"></script>
 	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>

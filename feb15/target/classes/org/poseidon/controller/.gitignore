@@ -1,4 +1,6 @@
 /BoardController.class
-/ErrorController.class
-/LoginController.class
+/FileController.class
+/GalleryController.class
 /RestFullController.class
+/LoginController.class
+/MailController.class

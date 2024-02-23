@@ -43,7 +43,7 @@
         <header class="masthead">
             <div class="container">
                 <div class="masthead-subheading">환영합니다, 트리니티 코인에 오신것을!</div>
-                <div class="masthead-heading text-uppercase">당신의 투자에 영광이 있으라</div>
+                <div class="masthead-heading text-uppercase">당신의 투자에 성공을!</div>
                 <a class="btn btn-primary btn-xl text-uppercase" href="#services">투자정보보기</a>
             </div>
         </header>

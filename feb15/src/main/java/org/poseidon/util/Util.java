@@ -1,6 +1,10 @@
 package org.poseidon.util;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,6 +14,9 @@ import org.apache.commons.mail.SimpleEmail;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
+
+import net.coobird.thumbnailator.Thumbnailator;
 
 @Component
 public class Util {
@@ -98,6 +105,37 @@ public class Util {
 		r.setSeed(System.currentTimeMillis());
 		String key = "" + r.nextInt(10) +  r.nextInt(10) + r.nextInt(10) + r.nextInt(10);
 		return key;
+	}
+
+	public String fileUpload(MultipartFile upFile) {
+		//경로 저장
+		String root = req().getSession().getServletContext().getRealPath("/");
+		String upfilePath = root + "resources\\upfile\\";
+		//UUID 뽑기
+		UUID uuid = UUID.randomUUID();
+		//UUID를 포함한 파일명
+		String newFileName = uuid.toString() + upFile.getOriginalFilename();
+		
+		//실제 업로드
+		File file = new File(upfilePath, newFileName);
+		if(file.exists() == false) {			
+			file.mkdirs();//경로가 없다면 다 만들어주기.
+		}
+		
+		try {
+			FileOutputStream thumbnail = new FileOutputStream(new File(upfilePath, "s_"+newFileName));
+			Thumbnailator.createThumbnail(upFile.getInputStream(), thumbnail, 100, 100);
+			thumbnail.close();
+			
+			upFile.transferTo(file);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return newFileName;
 	}
 
 }
