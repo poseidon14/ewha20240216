@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class RestDAO {
+public class RestDAO extends AbstractDAO{
 
-	@Autowired
-	private SqlSession sqlSession;
 
 	public String getEmail(String id) {
 		return sqlSession.selectOne("rest.getEmail", id);

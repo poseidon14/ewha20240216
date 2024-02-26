@@ -7,14 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RestService {
+public class RestService extends AbstractService {
 
 	@Autowired
 	private RestDAO restDAO;
 	
-	@Autowired
-	private Util util;
-
 	public int sendEmail() {
 		if (util.getSession().getAttribute("mid") != null) {
 			// 메일 발송 + key 데이터베이스에 저장

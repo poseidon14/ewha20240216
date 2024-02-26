@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Trinity Company - 갤러리</title>
+        <title>Trinity Company - 갤러리 게시판 톺아보기</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -50,42 +50,45 @@
         	  }
         	});
         
-        function galleryDetail(no){
-        	//location.href="./galleryDetail?no="+no;
-        	location.href="./galleryDetail@"+no;
-        }
+	
         </script>
     </head>
     <body id="page-top">
         <!-- Navigation-->
         <%@ include file="menu.jsp" %>
         
-        <!-- gallery -->
-	<section class="page-section" id="gallery">
-		<h1>갤러리</h1>
-		<div class="container">
-			<div class="text-center">
-				<div class="row">
-					<c:forEach items="${list }" var="row">
-						<div class="col-sm-3 mb-2">
-							<div class="card">
-								<div class="card-body" style="height: 120px;">
-									<img alt="" src="./upfile/s_${row.gfile }" onclick="galleryDetail(${row.gno })">
-								</div>
-								<div class="card-group row">
-									<div class="card-group-item col">${row.glike }</div>
-									<div class="card-group-item col justfy-content-end">${row.gdate }</div>
-								</div>
-							</div>
+        <!-- 갤러리 글쓰기 -->
+        <section class="page-section" id="gallery">
+			<div class="container">
+				<div class="text-center">			
+               		<h1 class="mt-5">갤러리 톺아보기</h1>
+               		<div class="card mb-4" style="min-height: 500px;">
+				<div class="card-body">
+					<div class="h2">${detail.gno } / ${detail.gtitle }</div>
+					<div class="row p-2 bg-secondary">
+						<div class="col align-middle text-start">
+						${detail.mname }
+						<c:if test="${detail.mid eq sessionScope.mid}">
+							<img alt="edit" src="./img/edit.png">
+							<img alt="delete" src="./img/delete.png" title="글삭제" onclick="deleteGallery(${detail.gno })">
+						</c:if>
 						</div>
-					</c:forEach>
+						<div class="col align-middle text-end">${detail.gdate }</div>
+					</div>
+					<div class="mt-4 h-auto">
+					${detail.gcontent }
+               		<img alt="" src="./upfile/${detail.gfile }">
+               		</div>
 				</div>
-				<button class="btn btn-outline-secondary" type="submit" onclick="location.href='./galleryInsert'">글쓰기</button>
 			</div>
-		</div>
-	</section>
-
-	<!-- Bootstrap core JS-->
+               		
+               		
+					
+            	</div>
+            </div>
+        </section>
+        
+        <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>

@@ -10,11 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class BoardDAO {
+public class BoardDAO extends AbstractDAO{
 
-	@Autowired
-	private SqlSession sqlSession;
-	
 	public List<BoardDTO> boardList(int pageNo){
 		return sqlSession.selectList("board.boardList", pageNo);
 	}

@@ -2,6 +2,8 @@ package org.poseidon.controller;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.poseidon.dto.GalleryDTO;
 import org.poseidon.service.GalleryService;
 import org.poseidon.util.Util;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class GalleryController {
 
-	@Autowired
+	@Resource(name="galleryService")
 	private GalleryService galleryService;
 
 	@Autowired
@@ -52,6 +55,22 @@ public class GalleryController {
 			return "redirect:/gallery";
 		} else {
 			return "redirect:/login";
+		}
+
+	}
+
+	// galleryDetail
+	// 2024-02-26 요구사항 확인 psd
+	@GetMapping("/galleryDetail@{no}")
+	public String galleryDetail(@PathVariable("no") String no, Model model) {
+		// System.out.println("경로 ㅣ: " + no);
+		if (util.intCheck(no)) {
+			GalleryDTO detail = galleryService.detail(no);
+
+			model.addAttribute("detail", detail);
+			return "galleryDetail";
+		} else {
+			return "redirect:/error";
 		}
 
 	}

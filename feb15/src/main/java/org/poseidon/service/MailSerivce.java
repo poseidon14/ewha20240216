@@ -7,7 +7,7 @@ import org.apache.commons.mail.SimpleEmail;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MailSerivce {
+public class MailSerivce  extends AbstractService {
 
 	// 메일 보내기
 	public void sendTextMail(String email, String title, String content) throws EmailException {
