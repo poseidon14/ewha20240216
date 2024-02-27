@@ -52,6 +52,7 @@ public class GalleryController {
 			dto.setGfile(newFileName);// UUID+
 
 			int result = galleryService.galleryInsert(dto);
+			System.out.println("result : " + result);
 			return "redirect:/gallery";
 		} else {
 			return "redirect:/login";

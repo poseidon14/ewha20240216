@@ -2,7 +2,6 @@ package org.poseidon.controller;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.poseidon.dto.BoardDTO;
 import org.poseidon.dto.CommentDTO;
 import org.poseidon.dto.WriteDTO;
@@ -117,6 +116,7 @@ public class BoardController {
 		//로그인 여부 
 		if(util.getSession().getAttribute("mid") != null) {
 			int result = boardService.commentWrite(comment);
+			System.out.println("result : " + result);
 			return "redirect:/detail?no="+comment.getNo();
 		} else {
 			return "redirect:/login";
@@ -142,7 +142,7 @@ public class BoardController {
 		System.out.println("cno : " + cno);
 		
 		int result = boardService.deleteComment(no, cno);
-		
+		System.out.println("result : " + result);
 		return "redirect:/detail?no="+no;
 	}
 	

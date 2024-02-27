@@ -2,11 +2,9 @@ package org.poseidon.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
 import org.poseidon.dto.BoardDTO;
 import org.poseidon.dto.CommentDTO;
 import org.poseidon.dto.WriteDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository

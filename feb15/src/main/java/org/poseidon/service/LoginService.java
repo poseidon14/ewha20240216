@@ -2,7 +2,6 @@ package org.poseidon.service;
 
 import org.poseidon.dao.LoginDAO;
 import org.poseidon.dto.LoginDTO;
-import org.poseidon.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

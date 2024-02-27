@@ -12,6 +12,7 @@
 		<typeAlias type="org.poseidon.dto.LoginDTO" alias="loginDTO"/>
 		<typeAlias type="org.poseidon.dto.MemberDTO" alias="memberDTO"/>
 		<typeAlias type="org.poseidon.dto.GalleryDTO" alias="galleryDTO"/>
+		<typeAlias type="org.poseidon.dto.NoticeDTO" alias="notice"/>
 	</typeAliases>
   	
   </configuration>

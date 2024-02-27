@@ -5,7 +5,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.mail.EmailException;
 import org.poseidon.dto.LoginDTO;
-import org.poseidon.dto.MemberDTO;
 import org.poseidon.service.LoginService;
 import org.poseidon.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
