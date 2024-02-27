@@ -3,7 +3,12 @@
 <mapper namespace="notice">
 
 	<select id="noticeList" parameterType="int" resultType="notice">
-		SELECT nno, ndel, nread, nlike, ntitle, ndate
+		SELECT nno, ndel, nread, nlike, ntitle,
+		if(
+			date_format(now(), '%Y-%m-%d') = date_format(ndate, '%Y-%m-%d'),
+			date_format(ndate, '%h:%i'),
+			date_format(ndate, '%m-%d')
+		) as ndate
 		FROM notice
 		WHERE ndel=1
 		ORDER BY nno DESC

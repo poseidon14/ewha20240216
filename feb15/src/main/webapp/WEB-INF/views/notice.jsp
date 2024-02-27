@@ -82,7 +82,10 @@ function linkPage(pageNo){
 								<c:forEach items="${list }" var="row">
 								<tr class="row">
 									<td class="col-2">${row.nno }</td>
-									<td class="title col-6"  onclick="location.href='./noticeDetail?no=${row.nno }'">${row.ntitle }</td>
+									<td class="title col-6" onclick="location.href='./noticeDetail?no=${row.nno }'">
+									<img alt="new" src="./img/new.png">
+									${row.ntitle }
+									</td>
 									<td class="col-2">${row.ndate }</td>
 									<td class="col-2">${row.nread }</td>
 								</tr>
