@@ -83,7 +83,7 @@ function linkPage(pageNo){
 								<tr class="row">
 									<td class="col-2">${row.nno }</td>
 									<td class="title col-6" onclick="location.href='./noticeDetail?no=${row.nno }'">
-									<img alt="new" src="./img/new.png">
+									<c:if test="${row.ndel eq 1}"><img alt="new" src="./img/new.png"></c:if>
 									${row.ntitle }
 									</td>
 									<td class="col-2">${row.ndate }</td>

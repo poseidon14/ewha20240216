@@ -2,6 +2,7 @@ package org.poseidon.service;
 
 import org.poseidon.dao.LoginDAO;
 import org.poseidon.dto.LoginDTO;
+import org.poseidon.dto.MemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,10 @@ public class LoginService  extends AbstractService {
 
 	public void mcountReset(LoginDTO loginDTO) {
 		loginDAO.mcountReset(loginDTO);
+	}
+
+	public int join(MemberDTO join) {
+		return loginDAO.join(join);
 	}
 
 
