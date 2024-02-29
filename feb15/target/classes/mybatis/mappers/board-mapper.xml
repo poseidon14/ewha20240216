@@ -20,6 +20,10 @@
 		AND board_title LIKE #{search} OR board_content LIKE #{search}
 		</if>
 	</select>
+	
+	<select id="totalRecordCount2" resultType="Integer">
+		SELECT COUNT(*) FROM board WHERE board_del='1'
+	</select>
 
 	<select id="boardList" parameterType="search" resultType="boardDTO">
 		select b.board_no, b.board_title, m.mname, 

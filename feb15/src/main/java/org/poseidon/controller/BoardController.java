@@ -36,7 +36,7 @@ public class BoardController {
 	//페이징 추가하기 2024-02-20 psd
 	@GetMapping("/board")
 	public String board(
-			@RequestParam(value="pageNo", required=false) String no,
+			@RequestParam(value="pageNo", required=false, defaultValue = "1") String no,
 			@RequestParam(value="search", required=false) String search,
 			Model model) {
 		

@@ -23,6 +23,10 @@ public class BoardDAO extends AbstractDAO {
 		return sqlSession.selectOne("board.totalRecordCount", search);
 	}
 
+	public int totalRecordCount() {
+		return sqlSession.selectOne("board.totalRecordCount2");
+	}
+	
 	public BoardDTO detail(int no) {
 		return sqlSession.selectOne("board.detail", no);
 	}
@@ -58,6 +62,8 @@ public class BoardDAO extends AbstractDAO {
 	public int liekUp(CommentDTO dto) {
 		return sqlSession.update("board.likeUp", dto);
 	}
+
+
 
 
 
