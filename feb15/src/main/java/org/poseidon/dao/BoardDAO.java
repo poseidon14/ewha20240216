@@ -4,14 +4,23 @@ import java.util.List;
 
 import org.poseidon.dto.BoardDTO;
 import org.poseidon.dto.CommentDTO;
+import org.poseidon.dto.SearchDTO;
 import org.poseidon.dto.WriteDTO;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class BoardDAO extends AbstractDAO{
+public class BoardDAO extends AbstractDAO {
 
-	public List<BoardDTO> boardList(int pageNo){
-		return sqlSession.selectList("board.boardList", pageNo);
+	public List<BoardDTO> boardList(SearchDTO searchDTO) {
+		return sqlSession.selectList("board.boardList", searchDTO);
+	}
+
+	public List<BoardDTO> boardList(int pageNo) {
+		return sqlSession.selectList("board.boardListJSON", pageNo);
+	}
+	
+	public int totalRecordCount(String search) {
+		return sqlSession.selectOne("board.totalRecordCount", search);
 	}
 
 	public BoardDTO detail(int no) {
@@ -34,10 +43,6 @@ public class BoardDAO extends AbstractDAO{
 		return sqlSession.update("board.postDel", dto);
 	}
 
-	public int totalRecordCount() {
-		return sqlSession.selectOne("board.totalRecordCount");
-	}
-
 	public int deleteComment(CommentDTO dto) {
 		return sqlSession.update("board.deleteComment", dto);
 	}
@@ -53,5 +58,7 @@ public class BoardDAO extends AbstractDAO{
 	public int liekUp(CommentDTO dto) {
 		return sqlSession.update("board.likeUp", dto);
 	}
-	
+
+
+
 }

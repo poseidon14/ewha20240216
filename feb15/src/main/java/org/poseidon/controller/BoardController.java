@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.poseidon.dto.BoardDTO;
 import org.poseidon.dto.CommentDTO;
+import org.poseidon.dto.SearchDTO;
 import org.poseidon.dto.WriteDTO;
 import org.poseidon.service.BoardService;
 import org.poseidon.util.Util;
@@ -34,15 +35,21 @@ public class BoardController {
 
 	//페이징 추가하기 2024-02-20 psd
 	@GetMapping("/board")
-	public String board(@RequestParam(value="pageNo", required=false) String no, Model model) {
+	public String board(
+			@RequestParam(value="pageNo", required=false) String no,
+			@RequestParam(value="search", required=false) String search,
+			Model model) {
+		
 		//pageNo가 오지 않는다면
 		int currentPageNo = 1;
 		if(util.str2Int(no) > 0 ) {//여기 수정해주세요.
 			currentPageNo = Integer.parseInt(no);
 		}
 		
+	
+		
 		//전체 글 수 totalRecordCount
-		int totalRecordCount = boardService.totalRecordCount();
+		int totalRecordCount = boardService.totalRecordCount(search);
 		//System.out.println("totalRecordCount : " + totalRecordCount); // 101
 		//pagination
 		PaginationInfo paginationInfo = new PaginationInfo();
@@ -51,7 +58,11 @@ public class BoardController {
 		paginationInfo.setPageSize(10); // 페이징 리스트의 사이즈
 		paginationInfo.setTotalRecordCount(totalRecordCount);//전체 게시물 건 수
 		
-		List<BoardDTO> list = boardService.boardList(paginationInfo.getFirstRecordIndex());
+		SearchDTO searchDTO = new SearchDTO();
+		searchDTO.setPageNo(paginationInfo.getFirstRecordIndex());
+		searchDTO.setSearch(search);
+		
+		List<BoardDTO> list = boardService.boardList(searchDTO);
 		model.addAttribute("list", list);
 		//페이징 관련 정보가 있는 PaginationInfo 객체를 모델에 반드시 넣어준다.
 		model.addAttribute("paginationInfo", paginationInfo);

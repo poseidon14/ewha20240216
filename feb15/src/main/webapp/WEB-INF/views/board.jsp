@@ -127,9 +127,19 @@ function linkPage(pageNo){
 						</c:forEach>
 					</tbody>
 				</table>
+				<!-- 검색 -->
+				<div class="m-2 bg-secondery">
+					<div>
+						<form action="./board">
+							<input type="text" name="search">
+							<input type="hidden" name="pageNo" value="${pageNo }">
+							<button>검색</button>
+						</form>
+					</div>
+				</div>
 				<!-- 페이징 -->
 				<div class="m-2 text-secondary" >
-					<ui:pagination paginationInfo="${paginationInfo}" type="image" jsFunction="linkPage"/>
+					<ui:pagination paginationInfo="${paginationInfo}" type="text" jsFunction="linkPage"/>
 				</div>
 				<!-- 글쓰기 버튼 -->
 				<c:if test="${sessionScope.mid ne null }">

@@ -52,8 +52,39 @@
         
         $(function(){
         	//Swal.fire('title','content', 'success');
-        	//join을 클릭하면 이벤트 발생
+			//2024-02-29 애플리케이션 테스트 수행  psd
+        	$('#idCheck').click(function (){        		
+        		let id = $('#id').val();
+        		//Swal.fire('ID검사','검사할 아이디 : ' + id, 'success');
+        		//3글자 이상, 10글자 이하 
+        		
+        		//기회가 된다면 공백을 사용하지 못하게 해주세요.
+        		if(id.length > 10 || id.length < 3){
+        			//3글자 이하, 10글자 이상 = 비정상 -> 멈춤
+        			Swal.fire('ID검사','아이디는 3 ~ 10 글자로 만들어주세요.', 'error');
+        		} else {
+        			//3글자 이상, 10글자 이하 = 정상 -> ajax
+        			$.ajax({
+        				url : './idCheck',
+        				type : 'post',
+        				dataType : 'json',
+        				data : {id : id},
+        				success: function(data){
+        					if(data.count == 1){	
+	        					Swal.fire('ID검사','이미 가입된 ID입니다. 다른 아이디를 입력하세요.', 'warning');			
+        					} else {
+	        					Swal.fire('ID검사', id + '는 가입할 수 있는 ID입니다.', 'success');
+	        					//나머지 작업
+        					}
+        				},
+        				error : function(error){
+        					Swal.fire('ID검사','문제가 발생했습니다 ' + error, 'error');
+        				}
+        			});
+        		}
+        	});
         	
+        	//join을 클릭하면 이벤트 발생
         	$('#join').click(function(){
         		//Swal.fire('회원가입','회원가입 버튼을 클릭하셨습니다.', 'success');
         		//id값 가져오기
