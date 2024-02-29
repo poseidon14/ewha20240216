@@ -14,19 +14,11 @@ public class BoardDAO extends AbstractDAO {
 	public List<BoardDTO> boardList(SearchDTO searchDTO) {
 		return sqlSession.selectList("board.boardList", searchDTO);
 	}
-
-	public List<BoardDTO> boardList(int pageNo) {
-		return sqlSession.selectList("board.boardListJSON", pageNo);
-	}
 	
 	public int totalRecordCount(String search) {
 		return sqlSession.selectOne("board.totalRecordCount", search);
 	}
 
-	public int totalRecordCount() {
-		return sqlSession.selectOne("board.totalRecordCount2");
-	}
-	
 	public BoardDTO detail(int no) {
 		return sqlSession.selectOne("board.detail", no);
 	}

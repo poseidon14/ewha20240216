@@ -83,7 +83,7 @@
 
 //전자정부 페이징 이동하는 스크립트
 function linkPage(pageNo){
-	location.href = "./board?pageNo="+pageNo;
+	location.href = "./board?search=${search}&pageNo="+pageNo;
 }	
 </script>
 </head>
@@ -133,7 +133,7 @@ function linkPage(pageNo){
 						<form action="./board">
 							<input type="text" name="search">
 							<input type="hidden" name="pageNo" value="${pageNo }">
-							<button>검색</button>
+							<button type="submit">검색</button>
 						</form>
 					</div>
 				</div>

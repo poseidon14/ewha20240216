@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.json.JSONObject;
 import org.poseidon.dto.BoardDTO;
+import org.poseidon.dto.SearchDTO;
 import org.poseidon.service.BoardService;
 import org.poseidon.service.RestService;
 import org.poseidon.util.Util;
@@ -58,16 +59,18 @@ public class RestFullController {
 
 	// 게시판을 json으로 출력해주는 api
 	@GetMapping("/jsonBoard")
-	public String jsonBoard(@RequestParam("pageNo") String no) {
+	public String jsonBoard(
+			@RequestParam("pageNo") String no,
+			@RequestParam(value="search", required=false) String search) {
 		// pageNo가 오지 않는다면
 		int currentPageNo = 1;
-		if (util.str2Int(no) > 0) {// 여기 수정해주세요.
+		if (util.str2Int(no) > 0) { // 여기 수정해주세요.
 			currentPageNo = Integer.parseInt(no);
 		}
 
 		// 전체 글 수 totalRecordCount
-		int totalRecordCount = boardService.totalRecordCount();
-		// System.out.println("totalRecordCount : " + totalRecordCount); // 101
+		int totalRecordCount = boardService.totalRecordCount(search);
+		
 		// pagination
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(currentPageNo);// 현재 페이지 번호
@@ -75,11 +78,17 @@ public class RestFullController {
 		paginationInfo.setPageSize(10); // 페이징 리스트의 사이즈
 		paginationInfo.setTotalRecordCount(totalRecordCount);// 전체 게시물 건 수
 
-		List<BoardDTO> list = boardService.boardList(paginationInfo.getFirstRecordIndex());
+		SearchDTO searchDTO = new SearchDTO();
+		searchDTO.setPageNo(paginationInfo.getFirstRecordIndex());
+		searchDTO.setSearch(search);
+		
+		List<BoardDTO> list = boardService.boardList(searchDTO);
 
 		// JSON
 		JSONObject jsonList = new JSONObject();
 		jsonList.put("list", list);
+		jsonList.put("paginationInfo", paginationInfo);
+		jsonList.put("pageNo", no);
 
 		return jsonList.toString();
 	}

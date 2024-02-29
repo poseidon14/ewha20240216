@@ -36,9 +36,11 @@ public class BoardController {
 	//페이징 추가하기 2024-02-20 psd
 	@GetMapping("/board")
 	public String board(
-			@RequestParam(value="pageNo", required=false, defaultValue = "1") String no,
+			@RequestParam(value="pageNo", required=false) String no,
 			@RequestParam(value="search", required=false) String search,
 			Model model) {
+		
+		//System.out.println(search);
 		
 		//pageNo가 오지 않는다면
 		int currentPageNo = 1;
@@ -46,16 +48,14 @@ public class BoardController {
 			currentPageNo = Integer.parseInt(no);
 		}
 		
-	
-		
 		//전체 글 수 totalRecordCount
 		int totalRecordCount = boardService.totalRecordCount(search);
-		//System.out.println("totalRecordCount : " + totalRecordCount); // 101
+		
 		//pagination
 		PaginationInfo paginationInfo = new PaginationInfo();
-		paginationInfo.setCurrentPageNo(currentPageNo);//현재 페이지 번호
-		paginationInfo.setRecordCountPerPage(10); //한 페이지에 게시되는 게시물 건 수
-		paginationInfo.setPageSize(10); // 페이징 리스트의 사이즈
+		paginationInfo.setCurrentPageNo(currentPageNo); //현재 페이지 번호
+		paginationInfo.setRecordCountPerPage(10); 		//한 페이지에 게시되는 게시물 건 수
+		paginationInfo.setPageSize(10); 				// 페이징 리스트의 사이즈
 		paginationInfo.setTotalRecordCount(totalRecordCount);//전체 게시물 건 수
 		
 		SearchDTO searchDTO = new SearchDTO();
@@ -67,6 +67,7 @@ public class BoardController {
 		//페이징 관련 정보가 있는 PaginationInfo 객체를 모델에 반드시 넣어준다.
 		model.addAttribute("paginationInfo", paginationInfo);
 		model.addAttribute("pageNo", currentPageNo);
+		model.addAttribute("search", search);
 
 		return "board";
 	}
