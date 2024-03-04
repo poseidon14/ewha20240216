@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="notice">
 
-	<select id="noticeList" parameterType="int" resultType="notice">
+	<select id="noticeList" parameterType="int" resultType="noticeDTO">
 		SELECT nno, nread, nlike, ntitle,
 		if(
 			date_format(now(), '%Y-%m-%d') = date_format(ndate, '%Y-%m-%d'),
@@ -22,12 +22,12 @@
 		WHERE ndel=1
 	</select>
 	
-	<insert id="noticeWrite" parameterType="notice">
+	<insert id="noticeWrite" parameterType="noticeDTO">
 		INSERT INTO notice (ntitle, ncontent)
 		VALUES (#{ntitle}, #{ncontent})
 	</insert>
 	
-	<select id="detail" parameterType="int" resultType="notice">
+	<select id="detail" parameterType="int" resultType="noticeDTO">
 		SELECT nno, ndel, nread, nlike, ntitle, ndate, ncontent
 		FROM notice
 		WHERE nno=#{no}

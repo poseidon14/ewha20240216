@@ -26,7 +26,7 @@
 		SELECT COUNT(*) FROM board WHERE board_del='1'
 	</select>
 
-	<select id="boardList" parameterType="search" resultType="boardDTO">
+	<select id="boardList" parameterType="searchDTO" resultType="boardDTO">
 		SELECT b.board_no, b.board_title, m.mname, 
 		if(date_format(current_timestamp(),'%Y-%m-%d') = date_format(b.board_date,'%Y-%m-%d'), 
 		date_format(b.board_date,'%h:%i'),date_format(b.board_date,'%m-%d')) AS board_date,
