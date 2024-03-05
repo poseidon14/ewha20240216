@@ -28,6 +28,11 @@ public class AdminServiceImpl extends AbstractService implements AdminService {
 	public int postDel(int no) {
 		return adminDAO.postDel(no);
 	}
+
+	@Override
+	public BoardDTO detail(int no) {
+		return adminDAO.detail(no);
+	}
 	
 
 }

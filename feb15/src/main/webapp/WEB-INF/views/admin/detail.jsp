@@ -6,6 +6,12 @@
 <title>상세보기</title>
 </head>
 <body>
-	${detail }
+	${detail.board_no }<br>
+	${detail.board_title }<br>
+	${detail.board_content }<br>
+	${detail.board_date }<br>
+	${detail.board_ip }<br>
+	${detail.mname }<br>
+	${detail.mid }<br>
 </body>
 </html>

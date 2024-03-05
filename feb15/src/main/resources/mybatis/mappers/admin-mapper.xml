@@ -3,7 +3,10 @@
 <mapper namespace="admin">
 
 	<select id="boardList" parameterType="searchDTO" resultType="boardDTO">
-		SELECT b.board_no, b.board_title, m.mname, m.mid, b.board_date, b.board_ip, b.board_del
+		SELECT b.board_no, b.board_title, m.mname, m.mid,
+		if(date_format(current_timestamp(),'%Y-%m-%d') = 
+			date_format(b.board_date,'%Y-%m-%d'),date_format(b.board_date,'%h:%i'),
+			date_format(b.board_date,'%m-%d')) AS board_date, b.board_ip, b.board_del
 		FROM board b JOIN member m ON b.mno=m.mno
 		<where>
 			<if test="searchTitle == 1">
@@ -14,6 +17,9 @@
 			</if>
 			<if test="searchTitle == 3">
 				m.mname LIKE CONCAT('%', #{search}, '%')
+			</if>
+			<if test="searchTitle == 4">
+				b.board_ip = #{search}
 			</if>
 		</where>
 		ORDER BY b.board_no DESC 
@@ -33,12 +39,22 @@
 			<if test="searchTitle == 3">
 				m.mname LIKE CONCAT('%', #{search}, '%')
 			</if>
+			<if test="searchTitle == 4">
+				b.board_ip = #{search}
+			</if>
 		</where>
 	</select>
 
 	 <update id="postDel" parameterType="Integer">
-      Update board SET board_del= CASE WHEN board_del='0' THEN '1' ELSE '0' END 
-      WHERE board_no=#{no}
+		UPDATE board SET board_del= CASE WHEN board_del='0' THEN '1' ELSE '0' END 
+		WHERE board_no=#{no}
    </update>
+   
+   <select id="detail" parameterType="int" resultType="boardDTO">
+		SELECT b.board_no, b.board_title, b.board_content, b.board_date, 
+				b.board_ip, m.mid, m.mname 
+		FROM board b JOIN member m ON b.mno=m.mno
+		WHERE board_no=#{no }
+   </select>
 
 </mapper>

@@ -99,5 +99,57 @@ public class AdminController {
 	public String join() {
 		return "admin/join";
 	}
+	
+	//20240305 psd 
+	@GetMapping("/detail")
+	public String detail(@RequestParam("no") int no, Model model) {
+		// 데이터 베이스에서 받아오세요.
+		BoardDTO detail = adminService.detail(no);
+		// 모델에 붙여주세요.
+		model.addAttribute("detail", detail);
+		return "admin/detail";
+	}
 
 }
+
+/*
+ * 20240305 psd
+ *              세션           쿠키
+ * 사용 예)     로그인			쇼핑 정보, 장바구니, 자동 로그인 
+ * 저장위치     서버			브라우져
+ * 속도         느림            빠름
+ * 보안         높음            낮음
+ * 
+ * 
+ * 세션과 쿠키의 차이점 
+ * 
+ * 쿠키/세션은 캐쉬와 다릅니다.			
+ * 
+ * 쿠키는 이름, 값, 유효시간, 도메인, 경로등을 저장합니다.
+ * 클라이너트에 총 300개의 쿠키를 저장할 수 있습니다., 
+ * 쿠키는 도메인당 20개만 가질 수 있습니다.
+ * 쿠키 크기는 4096byte(4KB)까지만 저장할 수 있습니다. 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 3/5회의 결과
+ * 
+ * 5월 졸업과정인 우리 과정도 포함입니다.
+ * 현 수업하고 있는 과목은? 안드로이드 앱 프로그래밍
+ * 수업했던 과목은?
+ * 
+ * 2시 이후 들어오면 외출처리 시킨답니다. 2시 전까지 들어오세요.
+ * 
+ * 601호는 50~정각까지 쉬는시간입니다. 쉬는 시간 이외에 밖에 나가면 외출처리 합니다.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * */

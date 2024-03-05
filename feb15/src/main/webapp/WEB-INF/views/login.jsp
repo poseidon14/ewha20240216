@@ -26,7 +26,7 @@
 		<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
 		<link rel="manifest" href="assets/manifest.json">
 		<meta name="msapplication-TileColor" content="#ffffff">
-		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+		<meta name="msapplication-TileImage" content="assets/ms-icon-144x144.png">
 		<meta name="theme-color" content="#ffffff">
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -36,6 +36,86 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- jquery 넣어주세요 -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+        <script type="text/javascript">
+        $(function(){
+        	//cookie가져오기 = getCookie
+        	let userInputId = getCookie('userInputId');
+        	let setCookieYN = getCookie('setCookieYN');
+        	
+        	if(setCookieYN == 'Y'){
+		        $('#id').val(userInputId);
+    			$('#saveID').prop("checked", true);    		
+        	}
+        	
+        	//alert("구동하려면 제이쿼리가 필요합니다");
+        	//아이디칸, pw칸 검사
+        	$('.check').click(function(){
+        		let id = $('#id').val();
+        		let pw = $('#pw').val();
+        		if(id == '' || id.length < 3){
+        			Swal.fire("", "올바른 아이디를 입력하세요.","warning");
+        			//alert('아이디 문제');
+        			$('#id').focus();
+        			return false;
+        		}
+        		if(pw == '' || pw.length < 3){
+        			Swal.fire("", "올바른 비밀번호를 입력하세요.","warning");
+        			//alert('비밀번호 문제');
+        			$('#pw').focus();
+        			return false;
+        		}
+        		//쿠키에 id저장하기
+        		//if문으로 사용자가 아이디 저장 눌렀어?
+        		if($('#saveID').is(':checked')){
+        			//ID불러와서 저장하기
+        			setCookie('setCookieYN', 'Y', 60); // 아이디 저장을 클릭했는지 저장합니다.
+        			setCookie("userInputId", id, 60);  //쿠키 저장하는 함수
+        		} else {
+        			//사용자가 id 저장을 누르지 않음. = 저장 안 함.
+        			delCookie('userInputId');
+        			delCookie('setCookieYN');
+        		}
+        				
+        		$('#loginForm').submit();//form 실행
+        	});
+        });
+        
+        //쿠키 저장하는 함수 (쿠키이름, 값, 기한)
+        function setCookie(cookieName, value, exdays){
+        	//오늘 날짜 뽑기
+        	let date = new Date();
+        	date.setDate(date.getDate() + exdays);
+        	let value2 = escape(value) + "; expires=" + date.toGMTString();
+        	//escape() 아스키문자에 해당하지 않는 문자들은 모두 유니코드 형식으로 변환
+        	document.cookie = cookieName + "=" + value2;
+        }
+        
+        //쿠키값 가져오기(가져올 쿠키 이름)
+        function getCookie(cookieName){
+        	let x, y;
+        	let val = document.cookie.split(';');
+        	for(let i = 0; i < val.length; i++){
+        		x = val[i].substr(0, val[i].indexOf('='));//저장한 쿠키이름
+        		y = val[i].substr(val[i].indexOf('=') + 1);//쿠키 값
+        		x = x.replace(/^\s+|\s+$/g, ''); // 앞과 뒤의 공백 제거하기
+        		if(x == cookieName){
+        			return y;
+        		}
+        	}
+        }
+        
+        //삭제하기 (삭제할 쿠키 이름)
+        function delCookie(cookieName){
+        	//let date = new Date();
+        	//date.setDate(date.getDate() - 1);
+        	//document.cookie = cookieName + "=; expires="+date.toGMTString();
+        	document.cookie = cookieName + "=; max-age=0";//꼭!
+        }
+        
+        </script>
+        
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -45,7 +125,7 @@
         <section class="page-section" id="login">
             <div class="d-flex justify-content-center">
                <div class="text-center">
-               		<form action="./login" method="post">
+               		<form action="./login" method="post" id="loginForm">
 					<img alt="login" src="./img/login.png" width="250px;">
 					<div class="mb-3 row">
 						<label for="id" class="col-sm-3 col-form-label">I D</label>
@@ -53,17 +133,23 @@
 							<input type="text" class="form-control" name="id" id="id" placeholder="아이디를 입력하세요">
 						</div>
 					</div>
-					<div class="mb-3 row">
+					<div class="mb-2 row">
 						<label for="pw" class="col-sm-3 col-form-label">Password</label>
 						<div class="col-sm-8">
 							<input type="password" class="form-control" name="pw" id="pw" placeholder="암호를 입력하세요">
 						</div>
 					</div>
 					<div class="mb-3 row">
+						<div class="col-sm-12 text-start">
+							<input type="checkbox" class="saveID" id="saveID">
+							<label for="saveID">아이디 저장</label>
+						</div>
+					</div>
+					<div class="mb-3 row">
 						<div class="col-sm-12">
 							<a href="./join" class="btn btn-secondary">회원가입</a>
-							<button type="reset" id="login" class="btn btn-danger">초기화</button>
-							<button type="submit" id="login" class="btn btn-primary">로그인</button>
+							<button type="reset" class="btn btn-danger">초기화</button>
+							<button type="button" class="btn btn-primary check">로그인</button>
 						</div>
 					</div>
 					</form>
